@@ -33,7 +33,7 @@ int main(int argc, char* argv[])
 			printf("%s ", buf[i]);
 		printf("\n");
 
-		//execv(buf[1])
+		execv(buf[0],buf);
 	}
 
 	else //parent process
