@@ -18,6 +18,8 @@ int main(int argc, char* argv[])
 		buf[i] = argv[i+1];
 	}	
 
+	buf[argc-1] = NULL;
+
 	printf("I was called with these parameters: ");
 	for(int i = 0; i < argc; i++)
 		printf("%s ", argv[i]);
