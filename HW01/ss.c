@@ -13,25 +13,27 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 		
-	for(int i = 0; i < argc; i++)
+	for(int i = 0; i < argc -1; i++)
 	{
-		buf[i] = argv[i];
+		buf[i] = argv[i+1];
 	}	
 
 	printf("I was called with these parameters: ");
 	for(int i = 0; i < argc; i++)
-		printf("%s ", buf[i]);
+		printf("%s ", argv[i]);
 	printf("\n");
 
 	ret = fork();
 
-	if(ret == 0)
+	if(ret == 0) //child process
 	{
 		printf("Child: after fork\n");
 		printf("I am calling execv with parameters:");
 		for(int i = 0; i < argc-1; i++)
-			printf("%s ", buf[i+1]);
+			printf("%s ", buf[i]);
 		printf("\n");
+
+		//execv(buf[1])
 	}
 
 }
