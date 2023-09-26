@@ -4,13 +4,14 @@
 
 int main(int argc, char* argv[])
 {
+	char *buf[argc];
+	int ret;
+
 	if(argc > 5)
 	{
 		printf("Too many command line arguments \n");
 		return 0;
 	}
-
-	char *buf[argc];
 		
 	for(int i = 0; i < argc; i++)
 	{
@@ -21,4 +22,16 @@ int main(int argc, char* argv[])
 	for(int i = 0; i < argc; i++)
 		printf("%s ", buf[i]);
 	printf("\n");
+
+	ret = fork();
+
+	if(ret == 0)
+	{
+		printf("Child: after fork\n");
+		printf("I am calling execv with parameters:");
+		for(int i = 0; i < argc-1; i++)
+			printf("%s ", buf[i+1]);
+		printf("/n");
+	}
+
 }
