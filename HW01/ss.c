@@ -9,11 +9,11 @@ int main(int argc, char* argv[])
 
 	if(argc > 5)
 	{
-		printf("Too many command line arguments \n");
+		printf("Too many command line arguments\n");
 		return 0;
 	}
 		
-	for(int i = 0; i < argc -1; i++)
+	for(int i = 0; i < argc - 1; i++)
 	{
 		buf[i] = argv[i+1];
 	}	
@@ -28,12 +28,19 @@ int main(int argc, char* argv[])
 	if(ret == 0) //child process
 	{
 		printf("Child: after fork\n");
-		printf("I am calling execv with parameters:");
+		printf("I am calling execv with parameters :");
 		for(int i = 0; i < argc-1; i++)
 			printf("%s ", buf[i]);
 		printf("\n");
 
 		//execv(buf[1])
+	}
+
+	else //parent process
+	{
+		printf("Waiting on child process with pid = %d to complete\n", ret);
+		wait(NULL);
+		printf("Bye from parent\n");
 	}
 
 }
