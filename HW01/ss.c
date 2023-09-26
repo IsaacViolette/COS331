@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		printf("I am calling execv with parameters:");
 		for(int i = 0; i < argc-1; i++)
 			printf("%s ", buf[i+1]);
-		printf("/n");
+		printf("\n");
 	}
 
 }
