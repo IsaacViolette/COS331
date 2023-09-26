@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 	if(argc > 5)
 	{
 		printf("Too many command line arguments\n");
-		return 0;
+		return -1;
 	}
 		
 	for(int i = 0; i < argc - 1; i++)
@@ -36,6 +36,8 @@ int main(int argc, char* argv[])
 		printf("\n");
 
 		execv(buf[0],buf);
+		perror("Execv Error");
+		return -1;
 	}
 
 	else //parent process
