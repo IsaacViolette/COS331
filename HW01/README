@@ -1,0 +1,20 @@
+Isaac Violette
+COS 331
+Homework 1
+09/26/2023
+
+Overview:
+
+This is a C program that takes a name of a program to create and any associated parameters from the command line and executes it. 
+
+Running the program:
+1. Make the program using the Makefile. An object file and executable will be created.
+2. Run ss.out with the maximum of 4 other parameters. The second parameter should be the future program to be created. The next three are parameters for the to be created program.
+
+Example:
+
+./ss.out ./hello.out hello world
+
+Note:
+
+The program should work for the specific guidelines that were posted on the assignment. There are no known errors.
