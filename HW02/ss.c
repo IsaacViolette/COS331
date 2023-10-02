@@ -7,12 +7,22 @@ int main(int argc, char* argv[])
 	char buf[80];
 	char *ptr;
 	int ret;
+	char argvec;
 
 	while(1)
 	{
 		printf("$$ ");
 		fflush(stdout);
 		ret = read(0, buf, 80);
-		printf("%s", buf);
+		
+		for(int i = 0; i < ret; i++)
+		{
+			if(buf[i] == ' ' || buf[i] == '\n')
+				buf[i] = '\0';
+		}
+
+		printf("%s\n", buf);
+		
+
 	}
 }
