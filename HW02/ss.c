@@ -10,10 +10,14 @@ int main(int argc, char* argv[])
 
 	while(1)
 	{
+		argi = 0;
+
 		printf("$$ ");
 		fflush(stdout);
 		ret = read(0, buf, 80);
 		
+		argvec[argi++] = buf;
+
 		for(int i = 0; i < ret; i++)
 		{
 			if(buf[i] == ' ' || buf[i] == '\n')
