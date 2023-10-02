@@ -5,9 +5,8 @@
 int main(int argc, char* argv[])
 {
 	char buf[80];
-	char *ptr;
-	int ret;
-	char argvec;
+	int ret,argi = 0;
+	char *argvec[5];
 
 	while(1)
 	{
@@ -18,11 +17,27 @@ int main(int argc, char* argv[])
 		for(int i = 0; i < ret; i++)
 		{
 			if(buf[i] == ' ' || buf[i] == '\n')
+			{
+				//maybe add error check if argi is greater than 4
 				buf[i] = '\0';
+				argvec[argi] = &buf[i+1];
+				argi++;
+			}
+		}
+		argvec[argi] = NULL;
+		
+		ret = fork();
+
+		if(ret == 0)//child
+		{
+			execv(argvec[0], argvec);
+			perror("Execv Error");
+			return -1;
 		}
 
-		printf("%s\n", buf);
-		
-
+		else
+		{
+			wait(NULL);
+		}
 	}
 }
