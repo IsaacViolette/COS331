@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
 		if(ret == 0)//child
 		{
 			execv(argvec[0], argvec);
-			printf("Execv error using file: %s \n", argvec[0]);
+			printf("%s: No such file or directory \n", argvec[0]);
 			return -1;
 		}
 
