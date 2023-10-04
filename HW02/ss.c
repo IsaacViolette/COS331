@@ -5,7 +5,7 @@
 int main(int argc, char* argv[])
 {
 	char buf[80];
-	int ret,argi = 0;
+	int ret,argi,bg = 0;
 	char *argvec[5];
 
 	while(1)
@@ -26,18 +26,20 @@ int main(int argc, char* argv[])
 
 		for(int i = 0; i < ret; i++)
 		{
-			/*
-			if(argi > 4)
+			if((buf[i+2] == '\n') && (buf[i+1] == '&') && (buf[i] == ' '))
 			{
-				printf("Too many parameters");
+				buf[i] = '\0';
+				bg = 1;
 			}
-			*/
+
+
 			if(buf[i] == ' ')
 			{
 				buf[i] = '\0';
 				argvec[argi] = &buf[i+1];
 				argi++;
 			}
+
 			if(buf[i] == '\n')
 			{
 				buf[i] = '\0';
@@ -57,7 +59,10 @@ int main(int argc, char* argv[])
 
 		else //parent
 		{
-			wait(NULL);
+			if(!bg)
+				wait(NULL);
+			else
+				sleep(1);
 		}
 	}
 }
