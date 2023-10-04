@@ -26,9 +26,14 @@ int main(int argc, char* argv[])
 
 		for(int i = 0; i < ret; i++)
 		{
+			/*
+			if(argi > 4)
+			{
+				printf("Too many parameters");
+			}
+			*/
 			if(buf[i] == ' ')
 			{
-				//maybe add error check if argi is greater than 4
 				buf[i] = '\0';
 				argvec[argi] = &buf[i+1];
 				argi++;
