@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
 	while(1)
 	{
 		argi = 0;
+		bg = 0;
 		for(int i = 0; i < 5; i++)
 		{
 			argvec[i] = NULL;
