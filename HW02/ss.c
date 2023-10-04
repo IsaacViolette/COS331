@@ -49,21 +49,38 @@ int main(int argc, char* argv[])
 		}
 		argvec[argi] = NULL;
 		
+		printf("Parent calling fork\n");
+		fflush(stdout);
+
 		ret = fork();
 
 		if(ret == 0)//child
 		{
+			
+			printf("Execv is called with these parameters: ");
+			for(int i = 0; i < argi; i++)
+				printf("%s ", argvec[i]);
+			printf("\n");
+			fflush(stdout);
+
 			execv(argvec[0], argvec);
 			printf("%s: No such file or directory \n", argvec[0]);
+			fflush(stdout);
 			return -1;
 		}
 
 		else //parent
 		{
 			if(!bg)
+			{
 				wait(NULL);
+			}
 			else
+			{
+				printf("Program execution in the background\n");
+				fflush(stdout);
 				sleep(1);
+			}
 		}
 	}
 }
