@@ -1,0 +1,13 @@
+Isaac Violette
+COS 331
+10/06/2023
+Homework 2
+
+Overview:
+
+This is a C program that runs as a simple shell. There is a prompt ($$), and it has the capability of running a process in the background. A make file is provided to compile ss.c.
+
+This program works by reading a command to a buffer of at most 80 characters. It then parses the buffer to determine what you want to execute and any parameters to send to the program when it has started. It then fills an argument vector with the program to execute plus parameters (at most 3). A new shell process is created by fork(), child process calls execv(). A program can be run with or without &. After the process is run or running in the backgorund, another prompt will show which can create another process.
+
+Note:
+After testing, there are no known errors 
