@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+void *count();
+
 int main(int argc, char* argv[])
 {
 	if(argc < 2)
@@ -22,8 +24,9 @@ int main(int argc, char* argv[])
 	int tot_ran_dig[] = {0,0,0,0,0,0,0,0,0,0};
 	pthread_t tid[num_threads];
 
-	srand(8);
-
+	srand(8); //required random number seed for homework
+	
+	/* Fill 2x2 Array with random numbers*/
 	for(int i = 0; i < 1024; i++)
 	{
 		for(int j = 0; j < 1024; j++)
@@ -32,10 +35,16 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	
+	/* Create threads based on user input*/
 	for(int i = 0; i < num_threads; i++)
 	{
-		pthread_create(&tid[0], NULL, count, (void *) NULL);
+		pthread_create(&tid[i], NULL, count, (void *) NULL);
+	}
+	
+	/* Wait for thread termination */
+	for(int i = 0; i < num_threads; i++)
+	{
+		pthread_join(tid[i], NULL);
 	}
 
 
@@ -43,5 +52,5 @@ int main(int argc, char* argv[])
 
 void *count(void *arg)
 {
-
+	printf("Hello World!\n");
 }
