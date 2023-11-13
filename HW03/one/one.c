@@ -1,8 +1,13 @@
+/*INCLUDES*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 
+/*PROTOTYPES*/
 void *count();
+
+/*GLOBAL VARIABLES*/
+int tot_ran_dig[] = {0,0,0,0,0,0,0,0,0,0};
 
 int main(int argc, char* argv[])
 {
@@ -21,10 +26,10 @@ int main(int argc, char* argv[])
 	}
 	
 	int ran_arr[1024][1024];
-	int tot_ran_dig[] = {0,0,0,0,0,0,0,0,0,0};
 	pthread_t tid[num_threads];
-
-	srand(8); //required random number seed for homework
+	
+	long seed = 8;
+	srand((unsigned) seed); //required random number seed for homework
 	
 	/* Fill 2x2 Array with random numbers*/
 	for(int i = 0; i < 1024; i++)
@@ -35,10 +40,14 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	int thread_parameters[2];
+
 	/* Create threads based on user input*/
 	for(int i = 0; i < num_threads; i++)
 	{
-		pthread_create(&tid[i], NULL, count, (void *) NULL);
+		thread_parameters[0] = i;
+		thread_parameters[1] = num_threads;
+		pthread_create(&tid[i], NULL, count, thread_parameters);
 	}
 	
 	/* Wait for thread termination */
@@ -47,10 +56,18 @@ int main(int argc, char* argv[])
 		pthread_join(tid[i], NULL);
 	}
 
+	/*	
+	printf("Total Number of each digit\n");
+	for(int i = 0; i < 10; i++)
+	{
+		printf("%d: %d",i, tot_ran_dig[i]);
+	}
+	*/
 
 }
 
 void *count(void *arg)
 {
-	printf("Hello World!\n");
+	int* parameters = (int*)arg;
+	printf("Hello World! %d %d\n", parameters[0], parameters[1]);
 }
