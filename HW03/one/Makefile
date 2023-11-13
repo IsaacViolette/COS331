@@ -1,6 +1,6 @@
 TARGET = one.out
 OBJS = one.o 
-CFLAGS = -Wall
+CFLAGS = -Wall -lpthread
 
 all: ${TARGET}
 ${TARGET}: ${OBJS}
