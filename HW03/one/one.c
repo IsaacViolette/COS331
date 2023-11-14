@@ -8,6 +8,7 @@ void *count();
 
 /*GLOBAL VARIABLES*/
 int tot_ran_dig[] = {0,0,0,0,0,0,0,0,0,0};
+int ran_arr[1024][1024];
 
 int main(int argc, char* argv[])
 {
@@ -25,7 +26,6 @@ int main(int argc, char* argv[])
 		exit(0);
 	}
 	
-	int ran_arr[1024][1024];
 	pthread_t tid[num_threads];
 	
 	long seed = 8;
@@ -62,18 +62,34 @@ int main(int argc, char* argv[])
 		pthread_join(tid[i], NULL);
 	}
 
-	/*	
+		
 	printf("Total Number of each digit\n");
 	for(int i = 0; i < 10; i++)
 	{
-		printf("%d: %d",i, tot_ran_dig[i]);
-	}
-	*/
+		printf("%d: %d\n",i, tot_ran_dig[i]);
+	}	
 
 }
 
 void *count(void *arg)
 {
 	int* parameters = (int*)arg;
-	printf("start: %d end: %d\n", parameters[0], parameters[1]);
+	int random_digits[] = {0,0,0,0,0,0,0,0,0,0};
+	int digit;
+
+	for(int i = parameters[0]; i < parameters[1]; i++)
+	{
+		for(int j = 0; j < 1024; j++)
+		{
+			digit = ran_arr[i][j];	
+			random_digits[digit]++;
+		}
+	}
+
+	for(int i = 0; i < 10; i++)
+	{
+		tot_ran_dig[i] += random_digits[i];
+	}
+
+
 }
