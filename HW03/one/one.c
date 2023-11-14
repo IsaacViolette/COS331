@@ -12,6 +12,7 @@ int ran_arr[1024][1024];
 
 int main(int argc, char* argv[])
 {
+	/* Error Checking */
 	if(argc < 2)
 	{
 		printf("Must enter number of threads\n");
@@ -26,7 +27,7 @@ int main(int argc, char* argv[])
 		exit(0);
 	}
 	
-	pthread_t tid[num_threads];
+	pthread_t tid[num_threads]; //Array for thread IDS
 	
 	long seed = 8;
 	srand((unsigned) seed); //required random number seed for homework
@@ -40,6 +41,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	/* Create beginning and end partitions, send to created threads */
 	int thread_parameters[num_threads][2];
 	int bin = 1024/num_threads;
 	int bin_index = 0;
@@ -76,7 +78,8 @@ void *count(void *arg)
 	int* parameters = (int*)arg;
 	int random_digits[] = {0,0,0,0,0,0,0,0,0,0};
 	int digit;
-
+	
+	/* Count random numbers and add to number counter array */
 	for(int i = parameters[0]; i < parameters[1]; i++)
 	{
 		for(int j = 0; j < 1024; j++)
@@ -85,11 +88,14 @@ void *count(void *arg)
 			random_digits[digit]++;
 		}
 	}
-
+	
+	/* Add all numbers to total number array*/
 	for(int i = 0; i < 10; i++)
 	{
 		tot_ran_dig[i] += random_digits[i];
 	}
+
+	return NULL;
 
 
 }
