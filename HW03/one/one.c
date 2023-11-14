@@ -40,14 +40,14 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	int thread_parameters[2];
+	int thread_parameters[num_threads][2];
 
 	/* Create threads based on user input*/
 	for(int i = 0; i < num_threads; i++)
 	{
-		thread_parameters[0] = i;
-		thread_parameters[1] = num_threads;
-		pthread_create(&tid[i], NULL, count, thread_parameters);
+		thread_parameters[i][0] = i;
+		thread_parameters[i][1] = num_threads;
+		pthread_create(&tid[i], NULL, count,(void *) thread_parameters[i]);
 	}
 	
 	/* Wait for thread termination */
