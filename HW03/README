@@ -1,0 +1,43 @@
+Isaac Violette
+COS 331
+11/14/23
+Homework 3
+
+Overview: 
+
+This homework had us use threads and semaphores to stop race conditions when counting random numbers in a massive 2D array. There are three programs that use 0 semaphores, 1 semaphore and 10 semaphores. A [1024][1024] array is created that holds random numbers and the user can enter how many threads they would like to create to count the ammout of each numbers in the random number array. Each thread adds the value to a global array that which could cause race conditions since multiple threads are writing to a global variable. A timing table is added below.
+
+How to run programs:
+
+In zero:
+This dirctory has the code which has no semaphores. A makefile is added. You must express how many threads you want in the commandline before running.
+
+In one:
+This dirctory has the code which has one semaphore. A makefile is added. You must express how many threads you want in the commandline before running.
+
+In ten:
+This dirctory has the code which has ten semaphores. A makefile is added. You must express how many threads you want in the commandline before running.
+
+Timing Table:
+
+Number of Threads | 0 Semaphores | 1 Semaphore | 10 Semaphores |
+__________________|______________|_____________|_______________|
+	4	  |    0.038 s	 |   0.050 s   |    0.049 s    |
+__________________|______________|_____________|_______________|	
+	16	  |    0.047 s	 |   0.052 s   |    0.056 s    |
+__________________|______________|_____________|_______________|
+	32	  |    0.053 s	 |   0.055 s   |    0.058 s    |
+__________________|______________|_____________|_______________|
+	64	  |    0.061 s	 |   0.065 s   |    0.066 s    |
+__________________|______________|_____________|_______________|
+
+Note:
+There are no known errors in these programs. To time the completion of the threads, the Linux time command was used. For example:
+
+$ time ./zero.out 4
+
+real 0m0.038s
+user 0m0.030s
+sys  0m0.009s
+
+The real time was taken as the measurement.
