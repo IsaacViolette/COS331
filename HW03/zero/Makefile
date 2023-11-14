@@ -1,6 +1,6 @@
-TARGET = ss.out
-OBJS = ss.o 
-CFLAGS = -Wall
+TARGET = zero.out
+OBJS = zero.o 
+CFLAGS = -Wall -lpthread
 
 all: ${TARGET}
 ${TARGET}: ${OBJS}
