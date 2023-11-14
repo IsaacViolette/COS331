@@ -13,8 +13,6 @@ void *count();
 /*GLOBAL VARIABLES*/
 int tot_ran_dig[] = {0,0,0,0,0,0,0,0,0,0};
 int ran_arr[1024][1024];
-
-char *semname = "sema";
 sem_t *my_sem;
 
 int main(int argc, char* argv[])
@@ -47,7 +45,9 @@ int main(int argc, char* argv[])
 			ran_arr[i][j] = (rand() % 10);
 		}
 	}
-
+	
+	/* Create one semaphore */
+	char *semname = "sema";
 	my_sem = sem_open(semname, O_CREAT, 777, 1);// Create one semaphore
 
 	/* Create beginning and end partitions, send to created threads */
