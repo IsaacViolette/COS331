@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/stat.h>
+#include <semaphore.h>
 
 /*PROTOTYPES*/
 void *count();
@@ -9,6 +13,9 @@ void *count();
 /*GLOBAL VARIABLES*/
 int tot_ran_dig[] = {0,0,0,0,0,0,0,0,0,0};
 int ran_arr[1024][1024];
+
+char *semname = "sema";
+sem_t *my_sem;
 
 int main(int argc, char* argv[])
 {
@@ -41,6 +48,8 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	my_sem = sem_open(semname, O_CREAT, 777, 1);// Create one semaphore
+
 	/* Create beginning and end partitions, send to created threads */
 	int thread_parameters[num_threads][2];
 	int bin = 1024/num_threads;
@@ -71,6 +80,9 @@ int main(int argc, char* argv[])
 		printf("%d: %d\n",i, tot_ran_dig[i]);
 	}	
 
+	sem_close(my_sem);
+	sem_unlink(semname);
+
 }
 
 void *count(void *arg)
@@ -89,13 +101,17 @@ void *count(void *arg)
 		}
 	}
 	
+	sem_wait(my_sem);
+
 	/* Add all numbers to total number array*/
 	for(int i = 0; i < 10; i++)
 	{
 		tot_ran_dig[i] += random_digits[i];
 	}
 
-	return NULL;
+	sem_post(my_sem);
+
+	return (void *) NULL;
 
 
 }
