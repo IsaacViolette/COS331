@@ -41,12 +41,18 @@ int main(int argc, char* argv[])
 	}
 
 	int thread_parameters[num_threads][2];
+	int bin = 1024/num_threads;
+	int bin_index = 0;
+	int extra = 1024 % num_threads;
 
 	/* Create threads based on user input*/
 	for(int i = 0; i < num_threads; i++)
 	{
-		thread_parameters[i][0] = i;
-		thread_parameters[i][1] = num_threads;
+		thread_parameters[i][0] = bin_index;
+		bin_index += bin;
+		if(i < extra)
+			bin_index += 1;
+		thread_parameters[i][1] = bin_index;
 		pthread_create(&tid[i], NULL, count,(void *) thread_parameters[i]);
 	}
 	
@@ -69,5 +75,5 @@ int main(int argc, char* argv[])
 void *count(void *arg)
 {
 	int* parameters = (int*)arg;
-	printf("Hello World! %d %d\n", parameters[0], parameters[1]);
+	printf("start: %d end: %d\n", parameters[0], parameters[1]);
 }
